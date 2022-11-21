@@ -1,1 +1,12 @@
-print("Client")
+-- Anti Freecam
+Citizen.CreateThread(function()
+    while SplashShield_Client.AntiFreeCam do
+        if SplashShield_Client.AntiFreeCam ~= true then return end
+        Citizen.Wait(10000)
+        local ped = GetPlayerPed(-1)
+        local camcoords = (GetEntityCoords(ped) - GetFinalRenderedCamCoord())
+        if (camcoords.x > 35) or (camcoords.y > 35) or (camcoords.z > 35) or (camcoords.x < -35) or (camcoords.y < -35) or (camcoords.z < -35) then
+            TriggerServerEvent('aramsamsam:ban', source, 'Freecam detected in Clientside')
+        end
+    end
+end)
